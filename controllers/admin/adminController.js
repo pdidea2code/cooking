@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const deleteFiles = require("../../helper/deleteFiles");
 
+// Admin Register
 const Register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -19,6 +20,7 @@ const Register = async (req, res, next) => {
   }
 };
 
+//Admin Login
 const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -40,6 +42,7 @@ const Login = async (req, res, next) => {
   }
 };
 
+//Get RefreshToken
 const RefreshToken = async (req, res, next) => {
   const refreshToken = req.body.refreshToken;
   if (!refreshToken) {
@@ -58,6 +61,7 @@ const RefreshToken = async (req, res, next) => {
   }
 };
 
+//Admin Reset Password
 const ResetPassword = async (req, res, next) => {
   try {
     const { oldpssword, newpassword, confirmpassword } = req.body;
@@ -79,6 +83,7 @@ const ResetPassword = async (req, res, next) => {
   }
 };
 
+//Update Admin Profile
 const updateProfile = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({ email: req.admin.email });

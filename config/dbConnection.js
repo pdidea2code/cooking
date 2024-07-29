@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//Date Base Connection
 const connectDB = () => {
   mongoose
     .connect(process.env.DB_URL)

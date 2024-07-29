@@ -44,6 +44,7 @@ AdminSchema.pre("save", async function (next) {
   next();
 });
 
+//Admin Generate Auth Token
 AdminSchema.methods.generateAuthToken = function (data) {
   const admin = this;
   const id = { _id: admin._id };
@@ -52,6 +53,7 @@ AdminSchema.methods.generateAuthToken = function (data) {
   return token;
 };
 
+//Admin Genrate Refresh Token
 AdminSchema.methods.generateRefreshToken = function (data) {
   const admin = this;
   const id = { _id: admin._id };
