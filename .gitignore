@@ -1,0 +1,4 @@
+.enc
+node_modules
+public
+package-lock.json
