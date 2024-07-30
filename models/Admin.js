@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypr = require("bcrypt");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const AdminSchema = new mongoose.Schema(
@@ -39,7 +39,7 @@ const AdminSchema = new mongoose.Schema(
 AdminSchema.pre("save", async function (next) {
   const admin = this;
   if (admin.isModified("password")) {
-    admin.password = await bcrypr.hashSync(admin.password, 12);
+    admin.password = await bcrypt.hashSync(admin.password, 12);
   }
   next();
 });

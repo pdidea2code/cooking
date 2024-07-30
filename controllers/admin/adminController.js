@@ -87,7 +87,7 @@ const ResetPassword = async (req, res, next) => {
 const updateProfile = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({ email: req.admin.email });
-    if (!admin) return queryErrorRelatedResponse(req, res, 404, "Invalid Admin!");
+    if (!admin) return queryErrorRelatedResponse(req, res, 401, "Invalid Admin!");
 
     admin.name = req.body.name;
     if (req.file.filename) {

@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const adminRouter = require("./routes/admin");
 app.use(adminRouter);
 
+//User Route
+const userRouter = require("./routes/app");
+app.use(userRouter);
+
 app.use((err, req, res, next) => {
   console.log(err);
   if (err.code && err.code === 11000) {
@@ -38,6 +42,8 @@ app.use((err, req, res, next) => {
 // Define static files
 app.use("/public/adminprofile", express.static(path.join(__dirname, "./public/images/adminimg")));
 app.use("/public/dietimage", express.static(path.join(__dirname, "./public/images/dietimg")));
+app.use("/public/userprofile", express.static(path.join(__dirname, "./public/images/userimg")));
+app.use("/public/categoryimage", express.static(path.join(__dirname, "./public/images/categoryimg")));
 
 const port = process.env.PORT || 5057;
 const server = http.createServer(app);

@@ -41,7 +41,7 @@ const updateAllergie = async (req, res, next) => {
 const updateAllergieStatus = async (req, res, next) => {
   try {
     const allergie = await Allergie.findById(req.params.id);
-    if (!allergie) return queryErrorRelatedResponse(req, res, 404, "Alletgie Not Found");
+    if (allergie.deletedCount === 0) return queryErrorRelatedResponse(req, res, 404, "Alletgie Not Found");
 
     allergie.status = !allergie.status;
     await allergie.save();

@@ -28,7 +28,7 @@ const getDiet = async (req, res, next) => {
 
     const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_DIET_IAMGE;
     const data = {
-      ...diet,
+      diet,
       baseUrl: baseUrl,
     };
     successResponse(res, data);

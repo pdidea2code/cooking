@@ -1,14 +1,15 @@
 var nodemailer = require("nodemailer");
 var fs = require("fs");
 var handlebars = require("handlebars");
+require("dotenv").config();
 const { queryErrorRelatedResponse, successResponse } = require("./sendResponse");
 
 const sendMail = (data) => {
   var transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.SMTP_SERVICE,
     auth: {
-      user: data.AuthEmail,
-      pass: data.AuthPass,
+      user: process.env.SMTP_EMAIL,
+      pass: process.env.SMTP_PASSWORD,
     },
   });
 
