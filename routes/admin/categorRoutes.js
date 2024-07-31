@@ -18,7 +18,7 @@ router.post(
   addCategory
 );
 router.get("/getcategory", verifyAdminToken, getCategory);
-router.post(
+router.put(
   "/updatecategory/:id",
   verifyAdminToken,
   singleFileUpload("public/images/categoryimg", ["image/png", "image/jpeg", "image/jpg"], 1024 * 1024, "image"),

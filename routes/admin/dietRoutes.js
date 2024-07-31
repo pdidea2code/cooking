@@ -12,7 +12,7 @@ const { singleFileUpload } = require("../../helper/imageUpload");
 const verifyAdminToken = require("../../helper/verifyAdminToken.js");
 
 router.post(
-  "/addDiet",
+  "/adddiet",
   verifyAdminToken,
   singleFileUpload("public/images/dietimg", ["image/png", "image/jpeg", "image/jpg"], 1024 * 1024, "image"),
   addDiet

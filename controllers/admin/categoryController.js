@@ -43,7 +43,7 @@ const updateCategory = async (req, res, next) => {
     if (!category) return queryErrorRelatedResponse(req, res, 404, "Category Not Found");
 
     req.body.name ? (category.name = req.body.name) : category.name;
-    if (req.file.filename) {
+    if (req.file && req.file.filename) {
       deleteFiles("categoryimg/" + category.image);
       category.image = req.file.filename;
     }

@@ -11,7 +11,6 @@ const { connectDB } = require("./config/dbConnection");
 connectDB();
 
 // Trust proxy headers
-app.set("trust proxy", true);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,6 +43,8 @@ app.use("/public/adminprofile", express.static(path.join(__dirname, "./public/im
 app.use("/public/dietimage", express.static(path.join(__dirname, "./public/images/dietimg")));
 app.use("/public/userprofile", express.static(path.join(__dirname, "./public/images/userimg")));
 app.use("/public/categoryimage", express.static(path.join(__dirname, "./public/images/categoryimg")));
+app.use("/public/recipeimage", express.static(path.join(__dirname, "./public/images/recipeimg")));
+app.use("/public/stepimage", express.static(path.join(__dirname, "./public/images/stepimg")));
 
 const port = process.env.PORT || 5057;
 const server = http.createServer(app);

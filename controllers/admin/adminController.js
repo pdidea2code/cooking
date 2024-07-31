@@ -90,7 +90,7 @@ const updateProfile = async (req, res, next) => {
     if (!admin) return queryErrorRelatedResponse(req, res, 401, "Invalid Admin!");
 
     admin.name = req.body.name;
-    if (req.file.filename) {
+    if (req.file && req.file.filename) {
       deleteFiles("adminimg/" + admin.image);
       admin.image = req.file.filename;
     }

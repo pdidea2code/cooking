@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const nutritionSchema = new mongoose.model(
+const NutritionSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -8,13 +8,15 @@ const nutritionSchema = new mongoose.model(
     amount: {
       type: String,
     },
-    // status: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    recipeid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "recipe",
+    },
   },
   {
     timestamps: true,
     versionKey: false,
   }
 );
+
+module.exports = mongoose.model("nutrition", NutritionSchema);

@@ -12,6 +12,10 @@ const RecipeSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    isSubscripe: {
+      type: Boolean,
+      default: false,
+    },
     time: {
       type: String,
     },
@@ -70,7 +74,7 @@ const RecipeSchema = new mongoose.Schema(
       },
     ],
     status: {
-      type: String,
+      type: Boolean,
       default: true,
     },
   },

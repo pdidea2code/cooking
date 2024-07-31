@@ -43,7 +43,7 @@ const updateDiet = async (req, res, next) => {
     if (!diet) return queryErrorRelatedResponse(req, res, 404, "Diet Not Found");
 
     req.body.name ? (diet.name = req.body.name) : diet.name;
-    if (req.file.filename) {
+    if (req.file && req.file.filename) {
       deleteFiles("dietimg/" + diet.image);
       diet.image = req.file.filename;
     }
