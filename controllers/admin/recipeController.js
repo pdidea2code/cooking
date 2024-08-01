@@ -7,14 +7,14 @@ const Step = require("../../models/Step");
 
 const addRecipe = async (req, res, next) => {
   try {
-    const { title, description, time, meal, nutrition, diet, cuisine, allergie, isSubscripe } = req.body;
+    const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
     const recipe = await Recipe.create({
       title: title,
       description: description,
       time: time,
       isSubscripe: isSubscripe,
       meal: meal,
-      nutrition: nutrition,
+      category: category,
       allergie: allergie,
       diet: diet,
       cuisine: cuisine,
@@ -30,31 +30,35 @@ const addRecipe = async (req, res, next) => {
 
 const updateRecipe = async (req, res, next) => {
   try {
-    const { title, description, time, meal, nutrition, diet, cuisine, allergie, isSubscripe } = req.body;
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
+    const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
 
-    title ? (recipe.title = title) : recipe.title;
-    description ? (recipe.description = description) : recipe.description;
-    time ? (recipe.time = time) : recipe.time;
-    isSubscripe ? (recipe.isSubscripe = isSubscripe) : recipe.isSubscripe;
-    meal ? (recipe.meal = meal) : recipe.meal;
-    nutrition ? (recipe.nutrition = nutrition) : recipe.nutrition;
-    diet ? (recipe.diet = diet) : recipe.diet;
-    cuisine ? (recipe.cuisine = cuisine) : recipe.cuisine;
-    allergie ? (recipe.allergie = allergie) : recipe.allergie;
-    if (req.files && req.files.image[0].filename) {
-      deleteFiles("recipeimg/" + recipe.image);
-      recipe.image = req.files.image[0].filename;
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) return queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
+
+    if (title) recipe.title = title;
+    if (description) recipe.description = description;
+    if (time) recipe.time = time;
+    if (meal) recipe.meal = meal;
+    if (category) recipe.category = category;
+    if (diet) recipe.diet = diet;
+    if (cuisine) recipe.cuisine = cuisine;
+    if (allergie) recipe.allergie = allergie;
+
+    if (req.files) {
+      if (req.files.image && req.files.image[0] && req.files.image[0].filename) {
+        deleteFiles("recipeimg/" + recipe.image);
+        recipe.image = req.files.image[0].filename;
+      }
+      if (req.files.audio && req.files.audio[0] && req.files.audio[0].filename) {
+        deleteFiles("recipeimg/" + recipe.audio);
+        recipe.audio = req.files.audio[0].filename;
+      }
+      if (req.files.video && req.files.video[0] && req.files.video[0].filename) {
+        deleteFiles("recipeimg/" + recipe.video);
+        recipe.video = req.files.video[0].filename;
+      }
     }
-    if (req.files && req.files.audio[0].filename) {
-      deleteFiles("recipeimg/" + recipe.audio);
-      recipe.audio = req.files.audio[0].filename;
-    }
-    if (req.files && req.files.video[0].filename) {
-      deleteFiles("recipeimg/" + recipe.video);
-      recipe.video = req.files.video[0].filename;
-    }
+
     await recipe.save();
     successResponse(res, recipe);
   } catch (error) {
@@ -78,6 +82,18 @@ const getRecipe = async (req, res, next) => {
   }
 };
 
+const updateRecipeSubscripe = async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
+
+    recipe.isSubscripe = !recipe.isSubscripe;
+    await recipe.save();
+    successResponse(res, "Recipe Status Update Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
 const updateRecipeStatus = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -131,8 +147,8 @@ const deleteMultiRecipe = async (req, res, next) => {
             await Step.deleteOne({ _id: step._id });
           })
         );
-        await Nutrition.deleteMany({ recipeid: req.params.id });
-        await Ingredient.deleteMany({ recipeid: req.params.id });
+        await Nutrition.deleteMany({ recipeid: data });
+        await Ingredient.deleteMany({ recipeid: data });
         deleteFiles("recipeimg/" + recipe.image);
         deleteFiles("recipeimg/" + recipe.audio);
         deleteFiles("recipeimg/" + recipe.video);
@@ -146,4 +162,12 @@ const deleteMultiRecipe = async (req, res, next) => {
   }
 };
 
-module.exports = { addRecipe, updateRecipe, getRecipe, updateRecipeStatus, deleteRecipe, deleteMultiRecipe };
+module.exports = {
+  addRecipe,
+  updateRecipe,
+  getRecipe,
+  updateRecipeStatus,
+  deleteRecipe,
+  deleteMultiRecipe,
+  updateRecipeSubscripe,
+};

@@ -45,6 +45,7 @@ app.use("/public/userprofile", express.static(path.join(__dirname, "./public/ima
 app.use("/public/categoryimage", express.static(path.join(__dirname, "./public/images/categoryimg")));
 app.use("/public/recipeimage", express.static(path.join(__dirname, "./public/images/recipeimg")));
 app.use("/public/stepimage", express.static(path.join(__dirname, "./public/images/stepimg")));
+app.use("/public/commentimage", express.static(path.join(__dirname, "./public/images/commentimg")));
 
 const port = process.env.PORT || 5057;
 const server = http.createServer(app);

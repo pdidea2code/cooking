@@ -1,18 +1,22 @@
 const express = require("express");
 const route = express.Router();
-const adminRouter = require("./adminRoutes");
-const dietRouter = require("./dietRoutes");
-const alletgieRouter = require("./allergieRoutes");
-const userRouter = require("./userRoutes");
-const categoryRouter = require("./categorRoutes");
-const cuisineRouter = require("./cuisineRoutes");
-const mealRouter = require("./mealRoutes");
-const recipeRouter = require("./recipeRoutes");
-const ingredientUnitRouter = require("./ingredientunitRoutes");
-const stepRouter = require("./stepRoutes");
-const ingredientRouter = require("./ingredientRoutes");
-const nutritionRouter = require("./nutritionRoutes");
-const notificationRouter = require("./notificationRoutes");
+const adminRouter = require("./adminRouter");
+const dietRouter = require("./dietRouter");
+const alletgieRouter = require("./allergieRouter");
+const userRouter = require("./userRouter");
+const categoryRouter = require("./categorRouter");
+const cuisineRouter = require("./cuisineRouter");
+const mealRouter = require("./mealRouter");
+const recipeRouter = require("./recipeRouter");
+const ingredientUnitRouter = require("./ingredientunitRouter");
+const stepRouter = require("./stepRouter");
+const ingredientRouter = require("./ingredientRouter");
+const nutritionRouter = require("./nutritionRouter");
+const notificationRouter = require("./notificationRouter");
+const generalsettingRouter = require("./generalsettingRouter");
+const planRouter = require("./planRouter");
+const commentRouter = require("./commentRouter");
+const ratingRoute = require("./ratingRouter");
 
 // Use router in index
 route.use("/admin", adminRouter);
@@ -28,5 +32,9 @@ route.use("/admin/step", stepRouter);
 route.use("/admin/ingredient", ingredientRouter);
 route.use("/admin/nutrition", nutritionRouter);
 route.use("/admin/notification", notificationRouter);
+route.use("/admin/generalsetting", generalsettingRouter);
+route.use("/admin/plan", planRouter);
+route.use("/admin/comment", commentRouter);
+route.use("/admin/rating", ratingRoute);
 
 module.exports = route;

@@ -7,6 +7,7 @@ const {
   updateRecipeStatus,
   deleteRecipe,
   deleteMultiRecipe,
+  updateRecipeSubscripe,
 } = require("../../controllers/admin/recipeController");
 const { multiDiffFileUpload, singleFileUpload } = require("../../helper/imageUpload");
 const route = express.Router();
@@ -33,6 +34,7 @@ route.post(
 );
 route.get("/getrecipe", verifyAdminToken, getRecipe);
 route.put("/updaterecipestatus/:id", verifyAdminToken, updateRecipeStatus);
+route.put("/updaterecipesubscripe/:id", verifyAdminToken, updateRecipeSubscripe);
 route.delete("/deleterecipe/:id", verifyAdminToken, deleteRecipe);
 route.delete("/deletemultirecipe", verifyAdminToken, deleteMultiRecipe);
 

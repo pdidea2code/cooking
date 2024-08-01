@@ -7,6 +7,7 @@ const { queryErrorRelatedResponse, successResponse } = require("./sendResponse")
 const sendMail = (data) => {
   var transporter = nodemailer.createTransport({
     service: process.env.SMTP_SERVICE,
+    secure: true,
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,

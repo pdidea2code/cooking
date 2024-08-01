@@ -7,8 +7,8 @@ const {
   updateDietStatus,
   deleteDiet,
   deleteMultDiet,
-} = require("../../controllers/admin/dietController");
-const { singleFileUpload } = require("../../helper/imageUpload");
+} = require("../../controllers/admin/dietController.js");
+const { singleFileUpload } = require("../../helper/imageUpload.js");
 const verifyAdminToken = require("../../helper/verifyAdminToken.js");
 
 router.post(

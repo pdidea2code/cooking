@@ -12,15 +12,14 @@ const queryErrorRelatedResponse = (req, res, status, data) => {
 };
 
 // Send success response (request , response , data that you want to pass)
-const successResponse = (res, data) => {
-  res.status(200);
-  res.json({ isSuccess: true, status: 200, info: data });
-};
-
-// Send success response of avatar(Image) (request , response , message and baseURL)
-const successResponseOfFiles = (res, message, baseurl) => {
-  res.status(200);
-  res.json({ isSuccess: true, status: 200, message, baseurl });
+const successResponse = (res, data, baseUrl = null) => {
+  if (baseUrl === null) {
+    res.status(200);
+    res.json({ isSuccess: true, status: 200, info: data });
+  } else {
+    res.status(200);
+    res.json({ isSuccess: true, status: 200, baseUrl: baseUrl, info: data });
+  }
 };
 
 // Delete response (request , response and message that want to display)
@@ -29,4 +28,4 @@ const deleteResponse = (res, data) => {
   res.json({ isSuccess: true, status: 202, message: data });
 };
 
-module.exports = { createResponse, queryErrorRelatedResponse, successResponse, successResponseOfFiles, deleteResponse };
+module.exports = { createResponse, queryErrorRelatedResponse, successResponse, deleteResponse };

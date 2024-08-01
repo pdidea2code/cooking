@@ -64,8 +64,8 @@ const login = async (req, res, next) => {
       const token = user.generateAuthToken({ email: req.body.email });
       const refresh_token = user.generateRefreshToken({ email: req.body.email });
       const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
-      const data = { token: token, refresh_token: refresh_token, user: user, baseUrl, baseUrl };
-      successResponse(res, data);
+      const data = { token: token, refresh_token: refresh_token, user: user };
+      successResponse(res, data, baseUrl);
     }
 
     //Mobile Number to Login
@@ -108,8 +108,8 @@ const login = async (req, res, next) => {
         const token = user.generateAuthToken({ google_id: req.body.google_id });
         const refresh_token = user.generateRefreshToken({ google_id: req.body.google_id });
         const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
-        const info = { token: token, refresh_token: refresh_token, user: user, baseUrl, baseUrl };
-        successResponse(res, info);
+        const info = { token: token, refresh_token: refresh_token, user: user };
+        successResponse(res, info, baseUrl);
       } else {
         successResponse(res, user);
       }
@@ -127,8 +127,8 @@ const login = async (req, res, next) => {
         const token = user.generateAuthToken({ apple_id: req.body.apple_id });
         const refresh_token = user.generateRefreshToken({ apple_id: req.body.apple_id });
         const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
-        const info = { token: token, refresh_token: refresh_token, user: user, baseUrl, baseUrl };
-        successResponse(res, info);
+        const info = { token: token, refresh_token: refresh_token, user: user };
+        successResponse(res, info, baseUrl);
       } else {
         successResponse(res, user);
       }
@@ -151,9 +151,11 @@ const mobaileOtpVerify = async (req, res, nex) => {
     user.otp = null;
     await user.save();
     const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
-    const info = { token: token, refresh_token: refresh_token, user: user, baseUrl, baseUrl };
-    successResponse(res, info);
-  } catch (error) {}
+    const info = { token: token, refresh_token: refresh_token, user: user };
+    successResponse(res, info, baseUrl);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const addProfile = async (req, res, next) => {

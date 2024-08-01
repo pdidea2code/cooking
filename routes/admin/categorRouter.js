@@ -7,8 +7,8 @@ const {
   updateCategoryStatus,
   deleteCategory,
   deleteMultCategory,
-} = require("../../controllers/admin/categoryController");
-const { singleFileUpload } = require("../../helper/imageUpload");
+} = require("../../controllers/admin/categoryController.js");
+const { singleFileUpload } = require("../../helper/imageUpload.js");
 const verifyAdminToken = require("../../helper/verifyAdminToken.js");
 
 router.post(

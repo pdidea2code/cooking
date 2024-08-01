@@ -20,59 +20,62 @@ const RecipeSchema = new mongoose.Schema(
       type: String,
     },
     totalrating: {
-      type: String,
+      type: Number,
       default: 0,
     },
     totalreview: {
-      type: String,
+      type: Number,
       default: 0,
     },
     averagerating: {
-      type: String,
+      type: Number,
       default: 0,
     },
     totalcomment: {
-      type: String,
+      type: Number,
       default: 0,
+    },
+    videolink: {
+      type: String,
+      default: null,
     },
     video: {
       type: String,
       default: null,
     },
+    videoStatus: {
+      type: Number, //0:uploded video ,1:video link
+      enum: [0, 1],
+    },
     audio: {
       type: String,
       default: null,
     },
-    meal: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "meal",
-      },
-    ],
-    nutrition: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "nutrition",
-      },
-    ],
-    allergie: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "allergie",
-      },
-    ],
-    diet: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "diet",
-      },
-    ],
-    cuisine: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "cuisine",
-      },
-    ],
+    meal: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "meal",
+    },
+
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+    },
+
+    allergie: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "allergie",
+    },
+
+    diet: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "diet",
+    },
+
+    cuisine: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "cuisine",
+    },
+
     status: {
       type: Boolean,
       default: true,
