@@ -243,66 +243,11 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
-const editProfile = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) return queryErrorRelatedResponse(req, res, 404, "Invalid User!");
-
-    req.body.name ? (user.name = req.body.name) : user.name;
-    if (req.body.diet) {
-      const { diet } = req.body;
-      user.diet = diet;
-    }
-    if (req.body.allergie) {
-      const { allergie } = req.body;
-      user.allergie = allergie;
-    }
-
-    if (req.file && req.file.filename) {
-      deleteFiles("userimg/" + user.image);
-      user.image = req.file.filename;
-    }
-
-    await user.save();
-    successResponse(res, user);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updateNotifiStatus = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) queryErrorRelatedResponse(req, res, 404, "Invalid User");
-
-    user.notification = !user.notification;
-    await user.save();
-    successResponse(res, "Update Successfully");
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updateSubscribeStatus = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) queryErrorRelatedResponse(req, res, 404, "Invalid User");
-
-    user.issubscribe = !user.issubscribe;
-    await user.save();
-    successResponse(res, "Subscribe Update Successfully");
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   signup,
   login,
   addProfile,
-  editProfile,
-  updateNotifiStatus,
-  updateSubscribeStatus,
+
   checkEmailId,
   verifyOtp,
   mobaileOtpVerify,

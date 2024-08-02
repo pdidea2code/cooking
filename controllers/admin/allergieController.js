@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, createResponse, successResponse } = require("../../helper/sendResponse");
 const Allergie = require("../../models/Allergie");
 
+//Add Allergie
 const addAllergie = async (req, res, next) => {
   try {
     const allergie = await Allergie.create({
@@ -14,6 +15,7 @@ const addAllergie = async (req, res, next) => {
   }
 };
 
+//Get All Allergie
 const getAllergie = async (req, res, next) => {
   try {
     const allergie = await Allergie.find();
@@ -25,6 +27,7 @@ const getAllergie = async (req, res, next) => {
   }
 };
 
+//Update Allergie
 const updateAllergie = async (req, res, next) => {
   try {
     const allergie = await Allergie.findById(req.params.id);
@@ -38,6 +41,7 @@ const updateAllergie = async (req, res, next) => {
   }
 };
 
+//Update Allergie Status
 const updateAllergieStatus = async (req, res, next) => {
   try {
     const allergie = await Allergie.findById(req.params.id);

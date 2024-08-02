@@ -35,7 +35,7 @@ const RecipeSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    videolink: {
+    videourl: {
       type: String,
       default: null,
     },
@@ -43,8 +43,8 @@ const RecipeSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    videoStatus: {
-      type: Number, //0:uploded video ,1:video link
+    videotype: {
+      type: Number, //0:video url  video ,1:uploded
       enum: [0, 1],
     },
     audio: {

@@ -1,12 +1,15 @@
 const deleteFiles = require("../../helper/deleteFiles");
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
+const Comment = require("../../models/Comment");
 const Ingredient = require("../../models/Ingredient");
 const Nutrition = require("../../models/Nutrition");
 const Recipe = require("../../models/Recipe");
 const Step = require("../../models/Step");
+const Rating = require("../../models/Rating");
 
 const addRecipe = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
     const recipe = await Recipe.create({
       title: title,
@@ -18,10 +21,32 @@ const addRecipe = async (req, res, next) => {
       allergie: allergie,
       diet: diet,
       cuisine: cuisine,
-      image: req.files.image[0].filename,
-      audio: req.files.audio[0].filename,
-      video: req.files.video[0].filename,
+      // image: req.files.image[0].filename,
+      // audio: req.files.audio[0].filename,
     });
+    if (req.body.videourl) {
+      recipe.videourl = req.body.videourl;
+      recipe.videotype = 1;
+    }
+    if (req.files) {
+      console.log(req.files);
+
+      if (req.files.video && req.files.video[0] && req.files.video[0].filename) {
+        recipe.video = req.files.video[0].filename;
+
+        recipe.videotype = 1;
+      }
+
+      if (req.files.image && req.files.image[0] && req.files.image[0].filename) {
+        recipe.image = req.files.image[0].filename;
+        // console.log(req.files.image[0]);
+      }
+      if (req.files.audio && req.files.audio[0] && req.files.audio[0].filename) {
+        recipe.audio = req.files.audio[0].filename;
+        // console.log(req.files.audio[0]);
+      }
+    }
+    await recipe.save();
     successResponse(res, recipe);
   } catch (error) {
     next(error);
@@ -30,6 +55,7 @@ const addRecipe = async (req, res, next) => {
 
 const updateRecipe = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
 
     const recipe = await Recipe.findById(req.params.id);
@@ -43,8 +69,15 @@ const updateRecipe = async (req, res, next) => {
     if (diet) recipe.diet = diet;
     if (cuisine) recipe.cuisine = cuisine;
     if (allergie) recipe.allergie = allergie;
+    if (req.body.videourl) {
+      deleteFiles("recipeimg/" + recipe.video);
+      recipe.videourl = req.body.videourl;
+      recipe.videotype = 0;
+    }
 
     if (req.files) {
+      console.log(req.files);
+
       if (req.files.image && req.files.image[0] && req.files.image[0].filename) {
         deleteFiles("recipeimg/" + recipe.image);
         recipe.image = req.files.image[0].filename;
@@ -56,6 +89,7 @@ const updateRecipe = async (req, res, next) => {
       if (req.files.video && req.files.video[0] && req.files.video[0].filename) {
         deleteFiles("recipeimg/" + recipe.video);
         recipe.video = req.files.video[0].filename;
+        recipe.videotype = 1;
       }
     }
 
@@ -85,7 +119,7 @@ const getRecipe = async (req, res, next) => {
 const updateRecipeSubscripe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
+    if (!recipe) return queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
 
     recipe.isSubscripe = !recipe.isSubscripe;
     await recipe.save();
@@ -97,7 +131,7 @@ const updateRecipeSubscripe = async (req, res, next) => {
 const updateRecipeStatus = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
+    if (!recipe) return queryErrorRelatedResponse(req, res, 404, "Invalid Recipe");
 
     recipe.status = !recipe.status;
     await recipe.save();
@@ -119,6 +153,15 @@ const deleteRecipe = async (req, res, next) => {
         await Step.deleteOne({ _id: data._id });
       })
     );
+
+    const comments = await Comment.find({ recipeid: req.params.id });
+    const deleteComment = await Promise.all(
+      steps.map(async (data) => {
+        deleteFiles("commentimg/" + data.image);
+        await Comment.deleteOne({ _id: data._id });
+      })
+    );
+    await Rating.deleteMany({ recipeid: req.params.id });
     await Nutrition.deleteMany({ recipeid: req.params.id });
     await Ingredient.deleteMany({ recipeid: req.params.id });
     deleteFiles("recipeimg/" + recipe.image);
@@ -147,6 +190,14 @@ const deleteMultiRecipe = async (req, res, next) => {
             await Step.deleteOne({ _id: step._id });
           })
         );
+        const comments = await Comment.find({ recipeid: req.params.id });
+        const deleteComment = await Promise.all(
+          steps.map(async (data) => {
+            deleteFiles("commentimg/" + data.image);
+            await Comment.deleteOne({ _id: data._id });
+          })
+        );
+        await Rating.deleteMany({ recipeid: req.params.id });
         await Nutrition.deleteMany({ recipeid: data });
         await Ingredient.deleteMany({ recipeid: data });
         deleteFiles("recipeimg/" + recipe.image);
