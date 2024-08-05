@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 //Date Base Connection
-const connectDB = () => {
+const connectDB = async () => {
   mongoose
     .connect(process.env.DB_URL)
     .then((res) => {
