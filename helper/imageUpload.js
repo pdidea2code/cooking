@@ -2,16 +2,12 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-// Helper function to ensure directory exists
-function ensureDirectoryExists(directory) {
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
-  }
-}
-
 // Single image upload related code for multer ...
 function singleFileUpload(uploadPath, allowedMimes, fileSize, name) {
-  ensureDirectoryExists(uploadPath);
+  // Ensure the upload path exists or create it
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
 
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -44,7 +40,9 @@ function singleFileUpload(uploadPath, allowedMimes, fileSize, name) {
 
 // Multi images upload related code for multer ...
 function multiFileUpload(uploadPath, allowedMimes, fileSize, name) {
-  ensureDirectoryExists(uploadPath);
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
 
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -76,7 +74,9 @@ function multiFileUpload(uploadPath, allowedMimes, fileSize, name) {
 }
 
 function multiDiffFileUpload(uploadPath, fieldConfigurations) {
-  ensureDirectoryExists(uploadPath);
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
 
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -121,7 +121,10 @@ const multiDiffFileAndPathUpload = (fieldConfigurations) => {
       if (fieldConfig) {
         const dirPath = path.join(baseUploadsPath, fieldConfig.path); // Concatenate base path with specified path
 
-        ensureDirectoryExists(dirPath); // Ensure the directory exists or create it
+        // Ensure the directory exists or create it
+        if (!fs.existsSync(dirPath)) {
+          fs.mkdirSync(dirPath, { recursive: true });
+        }
 
         cb(null, dirPath); // Set the destination path for file uploads based on field configuration
       } else {
