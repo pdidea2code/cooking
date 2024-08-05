@@ -1,30 +1,34 @@
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
-// Single image upload realted code for multer ...
-function singleFileUpload(path, allowedMimes, fileSize, name) {
-  // For store image or files over folder..
+// Single image upload related code for multer ...
+function singleFileUpload(uploadPath, allowedMimes, fileSize, name) {
+  // Ensure the upload path exists or create it
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path);
+      cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, "-").toLowerCase());
     },
   });
 
-  // For filter image or file types...
   const fileFilter = (req, file, cb) => {
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
       const error = new Error("Invalid file type.");
-      error.httpStatuscode = 422;
+      error.httpStatusCode = 422;
       error.errorMessage = "Invalid file type.";
       return cb(error);
     }
   };
 
-  // Return valid image...
   return multer({
     storage: storage,
     limits: {
@@ -35,10 +39,14 @@ function singleFileUpload(path, allowedMimes, fileSize, name) {
 }
 
 // Multi images upload related code for multer ...
-function multiFileUpload(path, allowedMimes, fileSize, name) {
+function multiFileUpload(uploadPath, allowedMimes, fileSize, name) {
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path);
+      cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, "-").toLowerCase());
@@ -50,7 +58,7 @@ function multiFileUpload(path, allowedMimes, fileSize, name) {
       cb(null, true);
     } else {
       const error = new Error("Invalid file type.");
-      error.httpStatuscode = 422;
+      error.httpStatusCode = 422;
       error.errorMessage = "Invalid file type.";
       return cb(error);
     }
@@ -65,10 +73,14 @@ function multiFileUpload(path, allowedMimes, fileSize, name) {
   }).array(name);
 }
 
-function multiDiffFileUpload(path, fieldConfigurations) {
+function multiDiffFileUpload(uploadPath, fieldConfigurations) {
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path);
+      cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, "-").toLowerCase());
@@ -109,7 +121,7 @@ const multiDiffFileAndPathUpload = (fieldConfigurations) => {
       if (fieldConfig) {
         const dirPath = path.join(baseUploadsPath, fieldConfig.path); // Concatenate base path with specified path
 
-        // Check if the directory exists, if not, create it
+        // Ensure the directory exists or create it
         if (!fs.existsSync(dirPath)) {
           fs.mkdirSync(dirPath, { recursive: true });
         }
