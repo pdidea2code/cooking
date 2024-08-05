@@ -9,7 +9,6 @@ const Rating = require("../../models/Rating");
 
 const addRecipe = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
     const recipe = await Recipe.create({
       title: title,
@@ -21,16 +20,13 @@ const addRecipe = async (req, res, next) => {
       allergie: allergie,
       diet: diet,
       cuisine: cuisine,
-      // image: req.files.image[0].filename,
-      // audio: req.files.audio[0].filename,
     });
     if (req.body.videourl) {
       recipe.videourl = req.body.videourl;
-      recipe.videotype = 1;
+      recipe.video = null;
+      recipe.videotype = 0;
     }
     if (req.files) {
-      console.log(req.files);
-
       if (req.files.video && req.files.video[0] && req.files.video[0].filename) {
         recipe.video = req.files.video[0].filename;
 
@@ -39,11 +35,9 @@ const addRecipe = async (req, res, next) => {
 
       if (req.files.image && req.files.image[0] && req.files.image[0].filename) {
         recipe.image = req.files.image[0].filename;
-        // console.log(req.files.image[0]);
       }
       if (req.files.audio && req.files.audio[0] && req.files.audio[0].filename) {
         recipe.audio = req.files.audio[0].filename;
-        // console.log(req.files.audio[0]);
       }
     }
     await recipe.save();
@@ -55,7 +49,6 @@ const addRecipe = async (req, res, next) => {
 
 const updateRecipe = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
 
     const recipe = await Recipe.findById(req.params.id);
@@ -72,12 +65,11 @@ const updateRecipe = async (req, res, next) => {
     if (req.body.videourl) {
       deleteFiles("recipeimg/" + recipe.video);
       recipe.videourl = req.body.videourl;
+      recipe.video = null;
       recipe.videotype = 0;
     }
 
     if (req.files) {
-      console.log(req.files);
-
       if (req.files.image && req.files.image[0] && req.files.image[0].filename) {
         deleteFiles("recipeimg/" + recipe.image);
         recipe.image = req.files.image[0].filename;

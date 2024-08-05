@@ -22,7 +22,6 @@ const latestRecipe = async (req, res, next) => {
       query.allergie = { $nin: allergieObjectIds };
     }
 
-    console.log(query);
     const recipes = await Recipe.find(query).sort({ createdAt: -1 }); // Sort by latest created
     if (recipes.length === 0) {
       return queryErrorRelatedResponse(req, res, 404, "No Recipes Found");
@@ -40,11 +39,8 @@ const latestRecipe = async (req, res, next) => {
       };
     });
     const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_RECIPE_IAMGE;
-    const result = {
-      recipe: data,
-      baseUrl: baseUrl,
-    };
-    successResponse(res, result);
+
+    successResponse(res, data, baseUrl);
   } catch (error) {
     next(error);
   }
@@ -181,4 +177,27 @@ const sercheRecipe = async (req, res, next) => {
     successResponse(res, data, baseUrl);
   } catch (error) {}
 };
-module.exports = { latestRecipe, recipeById, recipeFilter, sercheRecipe };
+
+const mostPopularRecipe = async (req, res, next) => {
+  try {
+    const recipe = await Recipe.find().sort({ averagerating: -1 });
+    if (!recipe.length) return queryErrorRelatedResponse(req, res, 404, "Recipe Not Found");
+
+    const data = recipe.map((data) => {
+      return {
+        _id: data._id,
+        title: data.title,
+        image: data.image,
+        description: data.description,
+        time: data.time,
+        isSubscripe: data.isSubscripe,
+        averagerating: data.averagerating,
+      };
+    });
+    const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_RECIPE_IAMGE;
+    successResponse(res, data, baseUrl);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { latestRecipe, recipeById, recipeFilter, sercheRecipe, mostPopularRecipe };
