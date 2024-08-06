@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, successResponse } = require("../../helper/sendResponse");
 const User = require("../../models/User");
 
+//Get All User
 const getUser = async (req, res, next) => {
   try {
     const user = await User.find().populate(["diet", "allergie"]);

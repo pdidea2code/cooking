@@ -1,6 +1,7 @@
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
 const Nutrition = require("../../models/Nutrition");
 
+//Add Nutrition
 const addNutrition = async (req, res, next) => {
   try {
     const reqbody = req.body;
@@ -21,6 +22,7 @@ const addNutrition = async (req, res, next) => {
   }
 };
 
+//Get All Nutrition
 const getNutrition = async (req, res, next) => {
   try {
     const nutrition = await Nutrition.find();
@@ -32,6 +34,7 @@ const getNutrition = async (req, res, next) => {
   }
 };
 
+//Get Nutrition By Recipe Id
 const getRecipeWiseNutrition = async (req, res, next) => {
   try {
     const nutrition = await Nutrition.find({ recipeid: req.params.id });
@@ -43,6 +46,7 @@ const getRecipeWiseNutrition = async (req, res, next) => {
   }
 };
 
+//Update Nutrition
 const updateNutrition = async (req, res, next) => {
   try {
     const { name, amount, recipeid } = req.body;
@@ -60,6 +64,7 @@ const updateNutrition = async (req, res, next) => {
   }
 };
 
+//Delete Nutrition
 const deleteNutrition = async (req, res, next) => {
   try {
     const nutrition = await Nutrition.findById(req.params.id);
@@ -72,6 +77,7 @@ const deleteNutrition = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Nutrition
 const deleteMultNutrition = async (req, res, next) => {
   try {
     const { ids } = req.body;

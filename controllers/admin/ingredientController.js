@@ -1,10 +1,11 @@
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
 const Ingredient = require("../../models/Ingredient");
 
+//Add Ingredient
 const addIngredient = async (req, res, next) => {
   try {
     const reqbody = req.body;
-
+    console.log(req.body);
     const data = await Promise.all(
       reqbody.map(async (data) => {
         const ingredient = await Ingredient.create({
@@ -22,6 +23,7 @@ const addIngredient = async (req, res, next) => {
   }
 };
 
+//Get All Ingredient
 const getIngredient = async (req, res, next) => {
   try {
     const ingredient = await Ingredient.find().populate("unit");
@@ -33,6 +35,7 @@ const getIngredient = async (req, res, next) => {
   }
 };
 
+//Get Ingredient By Recipe Id
 const getRecipeWiseIngredient = async (req, res, next) => {
   try {
     const ingredient = await Ingredient.find({ recipeid: req.params.id }).populate("unit");
@@ -44,6 +47,7 @@ const getRecipeWiseIngredient = async (req, res, next) => {
   }
 };
 
+//Update Ingredient
 const updateIngredient = async (req, res, next) => {
   try {
     const { name, amount, unit, recipeid } = req.body;
@@ -62,6 +66,7 @@ const updateIngredient = async (req, res, next) => {
   }
 };
 
+//Delete Ingridient
 const deleteIngredient = async (req, res, next) => {
   try {
     const ingredient = await Ingredient.findById(req.params.id);
@@ -74,6 +79,7 @@ const deleteIngredient = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Ingredient
 const deleteMultIngredient = async (req, res, next) => {
   try {
     const { ids } = req.body;

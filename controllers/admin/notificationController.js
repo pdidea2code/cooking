@@ -26,7 +26,7 @@ const getNotifications = async (req, res, next) => {
   }
 };
 
-// Update a specific notification
+// Update notification
 const updateNotification = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -43,7 +43,7 @@ const updateNotification = async (req, res, next) => {
   }
 };
 
-// Update the status of a specific notification (if applicable)
+// Update notification status
 const updateNotificationStatus = async (req, res, next) => {
   // Assuming there's a status field; if not, you can remove this
   try {
@@ -59,7 +59,7 @@ const updateNotificationStatus = async (req, res, next) => {
   }
 };
 
-// Delete a specific notification
+// Delete  notification
 const deleteNotification = async (req, res, next) => {
   try {
     const { id } = req.params;

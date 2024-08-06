@@ -1,6 +1,7 @@
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
 const GeneralSetting = require("../../models/GeneralSetting");
 
+//Add Genetal Setting
 const addGeneralSetting = async (req, res, next) => {
   try {
     const generalsetting = await GeneralSetting.create({});
@@ -10,6 +11,7 @@ const addGeneralSetting = async (req, res, next) => {
   }
 };
 
+//Update General Setting
 const updateGeneralSetting = async (req, res, next) => {
   try {
     const generalsetting = await GeneralSetting.findOne();
@@ -29,6 +31,7 @@ const updateGeneralSetting = async (req, res, next) => {
   }
 };
 
+// Get General Setting
 const getGeneralSetting = async (req, res, next) => {
   try {
     const generalsetting = await GeneralSetting.findOne();

@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, successResponse } = require("../../helper/sendResponse");
 const Rating = require("../../models/Rating");
 
+//Get All Rating
 const getRating = async (req, res, next) => {
   try {
     const rating = await Rating.find().populate(["userid", "recipeid"]);

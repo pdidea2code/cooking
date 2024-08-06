@@ -2,6 +2,7 @@ const { successResponse, queryErrorRelatedResponse } = require("../../helper/sen
 const Comment = require("../../models/Comment");
 const Recipe = require("../../models/Recipe");
 
+//Add Comment
 const addComment = async (req, res, next) => {
   try {
     const { commenttext, recipeid } = req.body;

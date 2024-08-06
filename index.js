@@ -6,9 +6,18 @@ var bodyParser = require("body-parser");
 const path = require("path");
 require("dotenv").config();
 const { connectDB } = require("./config/dbConnection");
+const mongoose = require("mongoose");
 
 //Date Base Connection
-connectDB();
+// connectDB();
+mongoose
+  .connect(process.env.DB_URL)
+  .then((res) => {
+    console.log("Database connection sucessfully !");
+  })
+  .catch((error) => {
+    console.log("Database connection error", error);
+  });
 
 // Trust proxy headers
 app.use(cors());
@@ -26,7 +35,6 @@ app.use(userRouter);
 app.use((err, req, res, next) => {
   console.log(err);
   if (err.code && err.code === 11000) {
-    // Customize the error message for duplicate key errors
     err.message = `Duplicate key error: ${Object.keys(err.keyValue)[0]} with value ${
       Object.values(err.keyValue)[0]
     } already exists.`;

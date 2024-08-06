@@ -7,6 +7,7 @@ const Step = require("../../models/Step");
 const Nutrition = require("../../models/Nutrition");
 const mongoose = require("mongoose");
 
+//Get Latest Recipe
 const latestRecipe = async (req, res, next) => {
   try {
     const dietObjectIds = req.user.diet.map((id) => new mongoose.Types.ObjectId(id));
@@ -46,6 +47,7 @@ const latestRecipe = async (req, res, next) => {
   }
 };
 
+//Get Recipe Detail
 const recipeById = async (req, res, next) => {
   try {
     const recipeId = req.params.id;
@@ -113,6 +115,7 @@ const recipeById = async (req, res, next) => {
   }
 };
 
+//Filter Recipe By Meal,Category,Diet,Cuisine And Allergy
 const recipeFilter = async (req, res, next) => {
   const filters = {};
   if (req.body.meal) {
@@ -156,6 +159,7 @@ const recipeFilter = async (req, res, next) => {
   }
 };
 
+//Serche Recipe
 const sercheRecipe = async (req, res, next) => {
   try {
     const { query } = req.body;
@@ -178,6 +182,7 @@ const sercheRecipe = async (req, res, next) => {
   } catch (error) {}
 };
 
+//Most Poular Recipe sort by Rating
 const mostPopularRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.find().sort({ averagerating: -1 });

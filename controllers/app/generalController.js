@@ -4,6 +4,7 @@ const Category = require("../../models/Category");
 const Cuisine = require("../../models/Cuisine");
 const Diet = require("../../models/Diet");
 
+//Get All Diet
 const getDiet = async (req, res, next) => {
   try {
     const diet = await Diet.find({ status: true });
@@ -16,6 +17,7 @@ const getDiet = async (req, res, next) => {
   }
 };
 
+//Get All Allergie
 const getAllergie = async (req, res, next) => {
   try {
     const allergie = await Allergie.find({ status: true });
@@ -27,6 +29,7 @@ const getAllergie = async (req, res, next) => {
   }
 };
 
+//Get All Cateory
 const getCategory = async (req, res, next) => {
   try {
     const category = await Category.find({ status: true });
@@ -39,6 +42,7 @@ const getCategory = async (req, res, next) => {
   }
 };
 
+//Get All Cuisine
 const getCuisine = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.find({ status: true });
@@ -50,6 +54,7 @@ const getCuisine = async (req, res, next) => {
   }
 };
 
+//Get All Meal
 const getMeal = async (req, res, next) => {
   try {
     const meal = await Cuisine.find({ status: true });

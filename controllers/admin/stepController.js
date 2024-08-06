@@ -2,6 +2,7 @@ const Step = require("../../models/Step");
 const deleteFiles = require("../../helper/deleteFiles");
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
 
+//Add Recipe Step
 const addStep = async (req, res, next) => {
   try {
     const { stepno, name, description, recipeid } = req.body;
@@ -18,6 +19,7 @@ const addStep = async (req, res, next) => {
   }
 };
 
+//Get Step By Recipe Id
 const getRecipeWiseStep = async (req, res, next) => {
   try {
     const steps = await Step.find({ recipeid: req.params.id });
@@ -34,6 +36,7 @@ const getRecipeWiseStep = async (req, res, next) => {
   }
 };
 
+//Update Stap
 const updateStep = async (req, res, next) => {
   try {
     const { stepno, name, description } = req.body;
@@ -56,6 +59,7 @@ const updateStep = async (req, res, next) => {
   }
 };
 
+//Get All Step
 const getSteps = async (req, res, next) => {
   try {
     const steps = await Step.find();
@@ -72,6 +76,7 @@ const getSteps = async (req, res, next) => {
   }
 };
 
+//Delete Recipe Step
 const deleteStep = async (req, res, next) => {
   try {
     const step = await Step.findById(req.params.id);
@@ -86,6 +91,7 @@ const deleteStep = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Step
 const deleteMultiStep = async (req, res, next) => {
   try {
     const { ids } = req.body;

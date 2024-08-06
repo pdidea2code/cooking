@@ -7,6 +7,7 @@ const Comment = require("../../models/Comment");
 const mongoose = require("mongoose");
 const Recipe = require("../../models/Recipe");
 
+//Edit Profile
 const editProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -34,6 +35,7 @@ const editProfile = async (req, res, next) => {
   }
 };
 
+//Update Notification Status
 const updateNotifiStatus = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -47,6 +49,7 @@ const updateNotifiStatus = async (req, res, next) => {
   }
 };
 
+//Update Subsctibe
 const updateSubscribeStatus = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -60,6 +63,7 @@ const updateSubscribeStatus = async (req, res, next) => {
   }
 };
 
+//Get General Setting
 const generalSetting = async (req, res, next) => {
   try {
     const setting = await GeneralSetting.findOne();
@@ -77,6 +81,7 @@ const generalSetting = async (req, res, next) => {
   }
 };
 
+//Get All Notification
 const getNotification = async (req, res, next) => {
   try {
     const notification = await Notification.find();
@@ -88,6 +93,7 @@ const getNotification = async (req, res, next) => {
   }
 };
 
+//Delete User Account
 const deleteAccount = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);

@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, createResponse, successResponse } = require("../../helper/sendResponse");
 const Cuisine = require("../../models/Cuisine");
 
+//Add Cuisine
 const addCuisine = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.create({
@@ -14,6 +15,7 @@ const addCuisine = async (req, res, next) => {
   }
 };
 
+//Get All Cuisine
 const getCuisine = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.find();
@@ -25,6 +27,7 @@ const getCuisine = async (req, res, next) => {
   }
 };
 
+//Update Cuisine
 const updateCuisine = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.findById(req.params.id);
@@ -38,6 +41,7 @@ const updateCuisine = async (req, res, next) => {
   }
 };
 
+//Update Cuisine Status
 const updateCuisineStatus = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.findById(req.params.id);
@@ -51,6 +55,7 @@ const updateCuisineStatus = async (req, res, next) => {
   }
 };
 
+//Delete Cuisine
 const deleteCuisine = async (req, res, next) => {
   try {
     const cuisine = await Cuisine.deleteOne({ _id: req.params.id });
@@ -62,6 +67,7 @@ const deleteCuisine = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Cuisine
 const deleteMultCuisine = async (req, res, next) => {
   try {
     const { ids } = req.body;

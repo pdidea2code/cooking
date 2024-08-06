@@ -6,6 +6,7 @@ const { sendMail } = require("../../helper/emailSender");
 const twilio = require("twilio");
 const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
+//Signup User
 const signup = async (req, res, next) => {
   try {
     const { email, password, name, mono } = req.body;
@@ -51,6 +52,7 @@ const signup = async (req, res, next) => {
   }
 };
 
+//Login User
 const login = async (req, res, next) => {
   try {
     //Email Login
@@ -138,6 +140,7 @@ const login = async (req, res, next) => {
   }
 };
 
+//Mobile Number Login Otp Verification
 const mobaileOtpVerify = async (req, res, nex) => {
   try {
     const user = await User.findOne({ mono: req.body.mono, otp: req.body.otp });
@@ -158,6 +161,7 @@ const mobaileOtpVerify = async (req, res, nex) => {
   }
 };
 
+//Add Profine
 const addProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.body.user_id);
@@ -210,6 +214,7 @@ const checkEmailId = async (req, res, next) => {
   }
 };
 
+//Verify Otp
 const verifyOtp = async (req, res, next) => {
   try {
     const user = await User.findOne({ _id: req.body.id, otp: req.body.otp });
@@ -225,6 +230,7 @@ const verifyOtp = async (req, res, next) => {
   }
 };
 
+//Reset Pssword
 const resetPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -247,7 +253,6 @@ module.exports = {
   signup,
   login,
   addProfile,
-
   checkEmailId,
   verifyOtp,
   mobaileOtpVerify,

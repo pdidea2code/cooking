@@ -1,6 +1,7 @@
 const { successResponse, queryErrorRelatedResponse } = require("../../helper/sendResponse");
 const Plan = require("../../models/Plan");
 
+//Add Subscription Plan
 const addPlan = async (req, res, next) => {
   try {
     const plan = await Plan.create({
@@ -14,6 +15,7 @@ const addPlan = async (req, res, next) => {
   }
 };
 
+//Get All Plan
 const getPlan = async (req, res, next) => {
   try {
     const plan = await Plan.find();
@@ -25,6 +27,7 @@ const getPlan = async (req, res, next) => {
   }
 };
 
+//Update Plan
 const updatePlan = async (req, res, next) => {
   try {
     const plan = await Plan.findById(req.params.id);
@@ -39,6 +42,7 @@ const updatePlan = async (req, res, next) => {
   }
 };
 
+//Update Plan Status
 const updatePlanStatus = async (req, res, next) => {
   try {
     const plan = await Plan.findById(req.params.id);
@@ -52,6 +56,7 @@ const updatePlanStatus = async (req, res, next) => {
   }
 };
 
+//Delete Plan
 const deletePlan = async (req, res, next) => {
   try {
     const plan = await Plan.findByIdAndDelete(req.params.id);
@@ -63,6 +68,7 @@ const deletePlan = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Plan
 const deleteMultiPlans = async (req, res, next) => {
   try {
     const { ids } = req.body;

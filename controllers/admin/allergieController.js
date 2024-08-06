@@ -55,6 +55,7 @@ const updateAllergieStatus = async (req, res, next) => {
   }
 };
 
+//Detete Allergie
 const deleteAllergie = async (req, res, next) => {
   try {
     const allergie = await Allergie.deleteOne({ _id: req.params.id });
@@ -66,6 +67,7 @@ const deleteAllergie = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Allergie
 const deleteMultAllergie = async (req, res, next) => {
   try {
     const { ids } = req.body;

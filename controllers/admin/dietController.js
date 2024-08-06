@@ -7,6 +7,7 @@ const {
 } = require("../../helper/sendResponse");
 const deleteFiles = require("../../helper/deleteFiles");
 
+//Add Diet
 const addDiet = async (req, res, next) => {
   try {
     const diet = await Diet.create({
@@ -21,6 +22,7 @@ const addDiet = async (req, res, next) => {
   }
 };
 
+//Get Dite
 const getDiet = async (req, res, next) => {
   try {
     const diet = await Diet.find();
@@ -37,6 +39,7 @@ const getDiet = async (req, res, next) => {
   }
 };
 
+//Update Diet
 const updateDiet = async (req, res, next) => {
   try {
     const diet = await Diet.findById(req.params.id);

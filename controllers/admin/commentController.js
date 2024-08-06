@@ -1,6 +1,7 @@
 const Comment = require("../../models/Comment");
 const { queryErrorRelatedResponse, successResponse } = require("../../helper/sendResponse");
 
+//get All Comment
 const getComment = async (req, res, next) => {
   try {
     const comment = await Comment.find().populate(["userid", "recipeid"]);

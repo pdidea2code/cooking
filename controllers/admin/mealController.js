@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, createResponse, successResponse } = require("../../helper/sendResponse");
 const Meal = require("../../models/Meal");
 
+//Add Meal
 const addMeal = async (req, res, next) => {
   try {
     const meal = await Meal.create({
@@ -14,6 +15,7 @@ const addMeal = async (req, res, next) => {
   }
 };
 
+//Get All Meal
 const getMeal = async (req, res, next) => {
   try {
     const meal = await Meal.find();
@@ -25,6 +27,7 @@ const getMeal = async (req, res, next) => {
   }
 };
 
+//Update Meal
 const updateMeal = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id);
@@ -38,6 +41,7 @@ const updateMeal = async (req, res, next) => {
   }
 };
 
+//Update Meal Status
 const updateMealStatus = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id);
@@ -51,6 +55,7 @@ const updateMealStatus = async (req, res, next) => {
   }
 };
 
+//Delete Meal
 const deleteMeal = async (req, res, next) => {
   try {
     const meal = await Meal.deleteOne({ _id: req.params.id });
@@ -62,6 +67,7 @@ const deleteMeal = async (req, res, next) => {
   }
 };
 
+//Delete Multiple Meal
 const deleteMultMeal = async (req, res, next) => {
   try {
     const { ids } = req.body;

@@ -1,6 +1,7 @@
 const { queryErrorRelatedResponse, createResponse, successResponse } = require("../../helper/sendResponse");
 const Unit = require("../../models/IngredientUnit");
 
+//Add Ingridient Unit
 const addUnit = async (req, res, next) => {
   try {
     const unit = await Unit.create({
@@ -14,6 +15,7 @@ const addUnit = async (req, res, next) => {
   }
 };
 
+//Get All Unit
 const getUnit = async (req, res, next) => {
   try {
     const unit = await Unit.find();
@@ -25,6 +27,19 @@ const getUnit = async (req, res, next) => {
   }
 };
 
+//Grt Active Unit (status=true)
+const getActiveUnit = async (req, res, next) => {
+  try {
+    const unit = await Unit.find({ status: true });
+    if (!unit) return queryErrorRelatedResponse(req, res, 404, "Unit Not Found");
+
+    successResponse(res, unit);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//Update Unit
 const updateUnit = async (req, res, next) => {
   try {
     const unit = await Unit.findById(req.params.id);
@@ -38,6 +53,7 @@ const updateUnit = async (req, res, next) => {
   }
 };
 
+//Update Unite Status
 const updateUnitStatus = async (req, res, next) => {
   try {
     const unit = await Unit.findById(req.params.id);
@@ -51,6 +67,7 @@ const updateUnitStatus = async (req, res, next) => {
   }
 };
 
+//Delete Unit
 const deleteUnit = async (req, res, next) => {
   try {
     const unit = await Unit.deleteOne({ _id: req.params.id });
@@ -62,6 +79,8 @@ const deleteUnit = async (req, res, next) => {
   }
 };
 
+
+//Delete Multiple Unit
 const deleteMultUnit = async (req, res, next) => {
   try {
     const { ids } = req.body;
@@ -84,4 +103,5 @@ module.exports = {
   updateUnitStatus,
   deleteUnit,
   deleteMultUnit,
+  getActiveUnit,
 };

@@ -7,11 +7,13 @@ const {
   updateUnitStatus,
   deleteUnit,
   deleteMultUnit,
+  getActiveUnit,
 } = require("../../controllers/admin/ingredientUnitController");
 const router = express.Router();
 
 router.post("/addunit", verifyAdminToken, addUnit);
 router.get("/getunit", verifyAdminToken, getUnit);
+router.get("/getactiveunit", verifyAdminToken, getActiveUnit);
 router.put("/updateunit/:id", verifyAdminToken, updateUnit);
 router.put("/updateunitstatus/:id", verifyAdminToken, updateUnitStatus);
 router.delete("/deleteunit/:id", verifyAdminToken, deleteUnit);

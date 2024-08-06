@@ -7,6 +7,7 @@ const Recipe = require("../../models/Recipe");
 const Step = require("../../models/Step");
 const Rating = require("../../models/Rating");
 
+//Add Recipe
 const addRecipe = async (req, res, next) => {
   try {
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
@@ -47,6 +48,7 @@ const addRecipe = async (req, res, next) => {
   }
 };
 
+//Update Recipe
 const updateRecipe = async (req, res, next) => {
   try {
     const { title, description, time, meal, category, diet, cuisine, allergie, isSubscripe } = req.body;
@@ -92,6 +94,7 @@ const updateRecipe = async (req, res, next) => {
   }
 };
 
+//Get Recope
 const getRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.find();
@@ -108,6 +111,7 @@ const getRecipe = async (req, res, next) => {
   }
 };
 
+//Update Recipe Is Subscripe
 const updateRecipeSubscripe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -120,6 +124,8 @@ const updateRecipeSubscripe = async (req, res, next) => {
     next(error);
   }
 };
+
+//Update Recipe Status
 const updateRecipeStatus = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -133,6 +139,7 @@ const updateRecipeStatus = async (req, res, next) => {
   }
 };
 
+//Delete Recipe
 const deleteRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -167,6 +174,7 @@ const deleteRecipe = async (req, res, next) => {
   }
 };
 
+//Delete Multinple Recipe
 const deleteMultiRecipe = async (req, res, next) => {
   try {
     const { ids } = req.body;
