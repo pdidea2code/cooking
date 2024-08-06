@@ -8,7 +8,7 @@ require("dotenv").config();
 const { connectDB } = require("./config/dbConnection");
 const mongoose = require("mongoose");
 
-//Date Base Connection
+//Date Base Connectionn
 // connectDB();
 mongoose
   .connect(process.env.DB_URL)
@@ -55,6 +55,7 @@ app.use("/public/recipeimage", express.static(path.join(__dirname, "./public/ima
 app.use("/public/stepimage", express.static(path.join(__dirname, "./public/images/stepimg")));
 app.use("/public/commentimage", express.static(path.join(__dirname, "./public/images/commentimg")));
 
+//App Run
 const port = process.env.PORT || 5057;
 const server = http.createServer(app);
 server.listen(port, () => console.log(`http://localhost:${port}`));
