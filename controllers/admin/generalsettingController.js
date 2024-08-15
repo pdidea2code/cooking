@@ -16,8 +16,6 @@ const updateGeneralSetting = async (req, res, next) => {
   try {
     const generalsetting = await GeneralSetting.findOne();
 
-    console.log(generalsetting);
-
     req.body.termsandcondition
       ? (generalsetting.termsandcondition = req.body.termsandcondition)
       : generalsetting.termsandcondition;

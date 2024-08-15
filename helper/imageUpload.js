@@ -3,6 +3,7 @@ const multer = require("multer");
 // Single image upload realted code for multer ...
 function singleFileUpload(path, allowedMimes, fileSize, name) {
   // For store image or files over folder..
+
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path);

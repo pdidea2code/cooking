@@ -3,7 +3,7 @@ const {
   Register,
   Login,
   RefreshToken,
-  ResetPassword,
+  changePassword,
   updateProfile,
 } = require("../../controllers/admin/adminController");
 const { singleFileUpload } = require("../../helper/imageUpload");
@@ -17,7 +17,7 @@ router.post(
 );
 router.post("/login", Login);
 router.post("/refreshtoken", RefreshToken);
-router.post("/resetpassword", verifyAdminToken, ResetPassword);
+router.post("/changepassword", verifyAdminToken, changePassword);
 router.post(
   "/updateprofile",
   verifyAdminToken,

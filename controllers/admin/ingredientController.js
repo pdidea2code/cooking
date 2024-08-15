@@ -5,7 +5,7 @@ const Ingredient = require("../../models/Ingredient");
 const addIngredient = async (req, res, next) => {
   try {
     const reqbody = req.body;
-    console.log(req.body);
+
     const data = await Promise.all(
       reqbody.map(async (data) => {
         const ingredient = await Ingredient.create({
@@ -57,11 +57,11 @@ const updateIngredient = async (req, res, next) => {
     name ? (ingredient.name = name) : ingredient.name;
     amount ? (ingredient.amount = amount) : ingredient.amount;
     unit ? (ingredient.unit = unit) : ingredient.unit;
+    unit == "" ? (ingredient.unit = null) : ingredient.unit;
     recipeid ? (ingredient.recipeid = recipeid) : ingredient.name;
     await ingredient.save();
     successResponse(res, ingredient);
   } catch (error) {
-    recipeid;
     next(error);
   }
 };

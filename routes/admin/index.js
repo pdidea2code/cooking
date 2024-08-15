@@ -17,6 +17,7 @@ const generalsettingRouter = require("./generalsettingRouter");
 const planRouter = require("./planRouter");
 const commentRouter = require("./commentRouter");
 const ratingRoute = require("./ratingRouter");
+const dashboardRouter = require("./dashboardRouter");
 
 // Use router in index
 route.use("/admin", adminRouter);
@@ -36,5 +37,6 @@ route.use("/admin/generalsetting", generalsettingRouter);
 route.use("/admin/plan", planRouter);
 route.use("/admin/comment", commentRouter);
 route.use("/admin/rating", ratingRoute);
+route.use("/admin/dashboard", dashboardRouter);
 
 module.exports = route;

@@ -62,20 +62,20 @@ const RefreshToken = async (req, res, next) => {
 };
 
 //Admin Reset Password
-const ResetPassword = async (req, res, next) => {
+const changePassword = async (req, res, next) => {
   try {
-    const { oldpssword, newpassword, confirmpassword } = req.body;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
     const admin = await Admin.findOne({ email: req.admin.email });
     if (!admin) return queryErrorRelatedResponse(req, res, 404, "Invalid User!");
 
-    const varifyPassword = await bcrypt.compare(oldpssword, admin.password);
+    const varifyPassword = await bcrypt.compare(oldPassword, admin.password);
     if (!varifyPassword) return queryErrorRelatedResponse(req, res, 401, "Invalid Old Password");
 
-    if (newpassword !== confirmpassword) {
+    if (newPassword !== confirmPassword) {
       return queryErrorRelatedResponse(req, res, 401, { confirm_password: "Confirm Password does not match!" });
     }
 
-    admin.password = newpassword;
+    admin.password = newPassword;
     await admin.save();
     successResponse(res, "Password changed successfully!");
   } catch (error) {
@@ -89,17 +89,23 @@ const updateProfile = async (req, res, next) => {
     const admin = await Admin.findOne({ email: req.admin.email });
     if (!admin) return queryErrorRelatedResponse(req, res, 401, "Invalid Admin!");
 
-    admin.name = req.body.name;
+    req.body.name ? (admin.name = req.body.name) : admin.name;
+
     if (req.file && req.file.filename) {
       deleteFiles("adminimg/" + admin.image);
       admin.image = req.file.filename;
     }
 
+    const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_ADMIN_PROFILE_PATH;
     const data = await admin.save();
-    successResponse(res, data);
+    const respo = {
+      data: data,
+      baseUrl: baseUrl,
+    };
+    successResponse(res, respo);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { Register, Login, RefreshToken, ResetPassword, updateProfile };
+module.exports = { Register, Login, RefreshToken, changePassword, updateProfile };

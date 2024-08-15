@@ -75,8 +75,11 @@ const deleteNotification = async (req, res, next) => {
 // Delete multiple notifications
 const deleteMultiNotifications = async (req, res, next) => {
   try {
+    console.log("call");
+    console.log(req.body);
     const { ids } = req.body;
     const result = await Notification.deleteMany({ _id: { $in: ids } });
+
     successResponse(res, "Notifications Deleted Successfully");
   } catch (error) {
     next(error);

@@ -40,6 +40,7 @@ const getRecipeWiseStep = async (req, res, next) => {
 const updateStep = async (req, res, next) => {
   try {
     const { stepno, name, description } = req.body;
+
     const step = await Step.findById(req.params.id);
     if (!step) return queryErrorRelatedResponse(req, res, 404, "Invalid Step");
 

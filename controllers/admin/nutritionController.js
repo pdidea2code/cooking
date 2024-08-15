@@ -50,6 +50,7 @@ const getRecipeWiseNutrition = async (req, res, next) => {
 const updateNutrition = async (req, res, next) => {
   try {
     const { name, amount, recipeid } = req.body;
+
     const nutrition = await Nutrition.findById(req.params.id);
     if (!nutrition) return queryErrorRelatedResponse(req, res, 404, "Nutrition Not Found");
 
