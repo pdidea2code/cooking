@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      require: [true, "Name is required"],
     },
     email: {
       type: String,
@@ -59,6 +60,10 @@ const UserSchema = new mongoose.Schema(
       default: null,
     },
     expireOtpTime: {
+      type: String,
+      default: null,
+    },
+    fcm_token: {
       type: String,
       default: null,
     },

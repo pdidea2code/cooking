@@ -10,10 +10,12 @@ module.exports = async function (req, res, next) {
   }
 
   if (!token) return queryErrorRelatedResponse(req, res, 402, "Access Denied.");
+
   try {
     const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     let admin = await Admin.findOne({ email: verified.email });
+
     if (!admin) {
       return queryErrorRelatedResponse(req, res, 402, "Access Denied.");
     }

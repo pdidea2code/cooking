@@ -24,6 +24,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  const currentTime = new Date().toISOString();
+  console.log(`[${currentTime}] ${req.method} ${req.url} - IP: ${req.ip}`);
+
+  next();
+});
+
 //Admin Route
 const adminRouter = require("./routes/admin");
 app.use(adminRouter);
@@ -56,6 +63,7 @@ app.use("/public/stepimage", express.static(path.join(__dirname, "./public/image
 app.use("/public/commentimage", express.static(path.join(__dirname, "./public/images/commentimg")));
 
 //App Run
+
 const port = process.env.PORT || 5057;
 const server = http.createServer(app);
 server.listen(port, () => console.log(`http://localhost:${port}`));

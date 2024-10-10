@@ -45,16 +45,19 @@ const Login = async (req, res, next) => {
 //Get RefreshToken
 const RefreshToken = async (req, res, next) => {
   const refreshToken = req.body.refreshToken;
+
   if (!refreshToken) {
     return res.status(401).json({ success: false, message: "Access Denied. No refresh token provided." });
   }
   try {
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
     const admin = await Admin.findOne({ email: decoded.email });
     if (!admin) {
       return queryErrorRelatedResponse(req, res, 401, "Invalid User!");
     }
     const accessToken = admin.generateAuthToken({ email: admin.email });
+
     successResponse(res, accessToken);
   } catch (error) {
     next(error);

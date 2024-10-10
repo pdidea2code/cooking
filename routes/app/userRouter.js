@@ -8,6 +8,8 @@ const {
   verifyOtp,
   mobaileOtpVerify,
   resetPassword,
+  RefreshToken,
+  getProfile,
 } = require("../../controllers/app/userController");
 const { singleFileUpload } = require("../../helper/imageUpload");
 const verifyAppToken = require("../../helper/verifyAppToken");
@@ -30,4 +32,6 @@ router.post("/checkemailid", checkEmailId);
 router.post("/verifyotp", verifyOtp);
 router.post("/mobaileotpverify", mobaileOtpVerify);
 router.post("/resetpassword", resetPassword);
+router.post("/refreshtoken", RefreshToken);
+router.get("/getProfile", verifyAppToken, getProfile);
 module.exports = router;

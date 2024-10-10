@@ -6,6 +6,7 @@ const Notification = require("../../models/Notification");
 const Comment = require("../../models/Comment");
 const mongoose = require("mongoose");
 const Recipe = require("../../models/Recipe");
+const Shopinglist = require("../../models/Shopinglist");
 
 //Edit Profile
 const editProfile = async (req, res, next) => {
@@ -22,7 +23,7 @@ const editProfile = async (req, res, next) => {
       const { allergie } = req.body;
       user.allergie = allergie;
     }
-
+    console.log(req.file);
     if (req.file && req.file.filename) {
       deleteFiles("userimg/" + user.image);
       user.image = req.file.filename;
@@ -127,6 +128,8 @@ const deleteAccount = async (req, res, next) => {
         await recipe.save();
       })
     );
+
+    await Shopinglist.deleteMany({ userid: req.user._id });
     deleteFiles("userimg/" + user.image);
     await User.deleteOne({ _id: req.user._id });
 

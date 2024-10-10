@@ -1,12 +1,21 @@
 const { queryErrorRelatedResponse, createResponse, successResponse } = require("../../helper/sendResponse");
 const Notification = require("../../models/Notification");
 
+// const firebaseadmin = require("firebase-admin");
+// const serviceAccount = require("../../../config/glamspot-firebase.json");
+
+// firebaseadmin.initializeApp({
+//   credential: firebaseadmin.credential.cert(serviceAccount),
+// });
+
 // Add a new notification
 const addNotification = async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const notification = await Notification.create({ title, description });
     if (!notification) return queryErrorRelatedResponse(req, res, 404, "Notification Not Created");
+
+    // await firebaseadmin.messaging().send(message);
 
     successResponse(res, notification);
   } catch (error) {

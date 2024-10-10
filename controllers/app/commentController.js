@@ -6,6 +6,9 @@ const Recipe = require("../../models/Recipe");
 const addComment = async (req, res, next) => {
   try {
     const { commenttext, recipeid } = req.body;
+
+    if (commenttext === "") return queryErrorRelatedResponse("Comment is required ");
+    if (recipeid === "") return queryErrorRelatedResponse("Recipe is required ");
     const recipe = await Recipe.findById(recipeid);
 
     if (!recipe) {

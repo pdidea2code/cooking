@@ -49,7 +49,7 @@ AdminSchema.methods.generateAuthToken = function (data) {
   const admin = this;
   const id = { _id: admin._id };
   data = { ...data, ...id };
-  const token = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "300m" });
+  const token = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1m" });
   return token;
 };
 

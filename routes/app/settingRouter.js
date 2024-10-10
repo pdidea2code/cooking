@@ -18,7 +18,7 @@ router.post(
   editProfile
 );
 router.put("/updatenotifistatus", verifyAppToken, updateNotifiStatus);
-router.put("/updatesubscribestatus", verifyAppToken, updateSubscribeStatus);
+// router.put("/updatesubscribestatus", verifyAppToken, updateSubscribeStatus);
 router.get("/generalsetting", verifyAppToken, generalSetting);
 router.get("/getnotification", verifyAppToken, getNotification);
 router.delete("/deleteaccount", verifyAppToken, deleteAccount);

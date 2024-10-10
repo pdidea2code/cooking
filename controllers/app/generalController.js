@@ -3,6 +3,7 @@ const Allergie = require("../../models/Allergie");
 const Category = require("../../models/Category");
 const Cuisine = require("../../models/Cuisine");
 const Diet = require("../../models/Diet");
+const Meal = require("../../models/Meal");
 
 //Get All Diet
 const getDiet = async (req, res, next) => {
@@ -57,7 +58,7 @@ const getCuisine = async (req, res, next) => {
 //Get All Meal
 const getMeal = async (req, res, next) => {
   try {
-    const meal = await Cuisine.find({ status: true });
+    const meal = await Meal.find({ status: true });
     if (!meal) return queryErrorRelatedResponse(req, res, 404, "Meal Not Found");
 
     successResponse(res, meal);

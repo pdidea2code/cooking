@@ -14,14 +14,24 @@ const route = express.Router();
 route.post(
   "/addstep",
   verifyAdminToken,
-  singleFileUpload("public/images/stepimg", ["image/png", "image/jpeg", "image/jpg"], 1024 * 1024, "image"),
+  singleFileUpload(
+    "public/images/stepimg",
+    ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+    1024 * 1024,
+    "image"
+  ),
   addStep
 );
 
 route.post(
   "/updatestep/:id",
   verifyAdminToken,
-  singleFileUpload("public/images/stepimg", ["image/png", "image/jpeg", "image/jpg"], 1024 * 1024, "image"),
+  singleFileUpload(
+    "public/images/stepimg",
+    ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+    1024 * 1024,
+    "image"
+  ),
   updateStep
 );
 

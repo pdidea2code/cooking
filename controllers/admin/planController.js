@@ -4,9 +4,11 @@ const Plan = require("../../models/Plan");
 //Add Subscription Plan
 const addPlan = async (req, res, next) => {
   try {
+    console.log(req.body);
     const plan = await Plan.create({
       duration: req.body.duration,
       amount: req.body.amount,
+      day: req.body.day,
     });
 
     successResponse(res, plan);
@@ -35,6 +37,7 @@ const updatePlan = async (req, res, next) => {
 
     req.body.duration ? (plan.duration = req.body.duration) : plan.duration;
     req.body.amount ? (plan.amount = req.body.amount) : plan.amount;
+    req.body.day ? (plan.day = req.body.day) : plan.day;
     await plan.save();
     successResponse(res, "Update Successfully");
   } catch (error) {
@@ -48,6 +51,7 @@ const updatePlanStatus = async (req, res, next) => {
     const plan = await Plan.findById(req.params.id);
     if (!plan) return queryErrorRelatedResponse(req, res, 404, "Plan Not Found");
 
+    console.log(req.params.id);
     plan.status = !plan.status;
     await plan.save();
     successResponse(res, "Status Updated Successfully");
@@ -78,6 +82,13 @@ const deleteMultiPlans = async (req, res, next) => {
     if (result.deletedCount === 0) return queryErrorRelatedResponse(req, res, 404, "No Plans Found To Delete");
 
     successResponse(res, `${result.deletedCount} Plans Deleted Successfully`);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const plandetail = async (req, res, next) => {
+  try {
   } catch (error) {
     next(error);
   }

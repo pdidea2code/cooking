@@ -84,6 +84,7 @@ const updateRecipe = async (req, res, next) => {
         deleteFiles("recipeimg/" + recipe.video);
         recipe.video = req.files.video[0].filename;
         recipe.videotype = 1;
+        recipe.videourl = null;
       }
     }
 
