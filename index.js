@@ -63,7 +63,7 @@ app.use("/public/stepimage", express.static(path.join(__dirname, "./public/image
 app.use("/public/commentimage", express.static(path.join(__dirname, "./public/images/commentimg")));
 
 app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("/*", function (req, res) {
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 });
 //App Run
