@@ -1,0 +1,298 @@
+// Here you can add other styles
+@media (min-width: 992px) {
+  .main-col {
+    width: 33.33%;
+  }
+}
+.custom-color,
+.custom-color:hover {
+  background-color: #15b3ce;
+  border: none;
+}
+.btn-link {
+  color: #zz;
+}
+.login-page {
+  background-image: url('../assets/images/vegetables-set-left-black-slate.jpg');
+
+  background-color: #000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.errors {
+  color: #e55353;
+  font-size: 0.875em;
+}
+.success {
+  color: #40903c;
+}
+
+.main-logo img {
+  width: auto;
+  // color: #15b3ce;
+}
+.update-button {
+  display: flex;
+  justify-content: flex-end;
+}
+.avatar-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.avatar-md {
+  margin-right: 10px;
+}
+
+html:not([dir='rtl']) .ms-2 {
+  margin-left: 10rem !important;
+}
+
+.right-text {
+  display: flex;
+  justify-content: right;
+  margin-top: -2.7rem;
+  margin-bottom: 0.5rem;
+}
+.AddButton {
+  background-color: #bacdf9 !important;
+  border: none !important;
+  margin-top: 3.3rem;
+  color: black !important;
+}
+
+/* -------------------------- datatable responsive media query-------------------------- */
+@media (max-width: 900px) {
+  .MuiTableHead-root {
+    display: none !important;
+  }
+  .MuiTableCell-sizeMedium {
+    display: inline-block !important;
+  }
+  .MuiTableCell-paddingCheckbox {
+    display: table-cell !important;
+  }
+}
+@media (max-width: 426px) {
+  .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon {
+    font-size: 10px !important;
+  }
+}
+@media (max-width: 1400px) {
+  html:not([dir='rtl']) .ms-2 {
+    margin-left: 2rem !important;
+  }
+}
+@media (min-width: 1440px) {
+  html:not([dir='rtl']) .ms-2 {
+    margin-left: 9rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  html:not([dir='rtl']) .ms-2 {
+    padding-bottom: 28px;
+  }
+}
+/* ----------------------------- end media query ----------------------------- */
+
+.MuiTableCell-head {
+  padding-left: 0 !important;
+  background-color: #15b3ce33 !important;
+}
+
+.tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
+  background-color: none !important;
+}
+.css-1ygcj2i-MuiTableCell-root {
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+.tss-1akey0g-MUIDataTableHeadCell-data,
+.MuiTypography-root {
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+a {
+  text-decoration: none !important;
+  color: #2c384aae !important;
+}
+/** delete button css*/
+.deleteButton {
+  color: #ffff;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 5px;
+  margin: 0px 6px;
+  font-size: 30px !important;
+  padding: 4px;
+  background-color: #dc3545;
+}
+.editButton {
+  color: #ffff;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 5px;
+  margin: 0px 6px;
+  font-size: 30px !important;
+  padding: 4px;
+  background-color: #3c4b64;
+}
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+  // margin-top: 4rem !important;
+}
+
+.gender {
+  display: block;
+}
+.user-profile {
+  width: 80px;
+  height: 80px;
+  border-radius: 25%;
+}
+
+.card-header {
+  background-color: #dae4fc !important;
+}
+
+/* ---------------------------- sidebar color css --------------------------- */
+.sidebar {
+  --cui-sidebar-bg: #dae4fc !important;
+  --cui-sidebar-nav-group-bg: #dae4fc !important;
+  --cui-sidebar-nav-group-indicator: url('../assets/images/mdi--arrow-down-drop--gray.svg');
+
+  --cui-sidebar-nav-group-indicator-hover: url('../assets/images/mdi--arrow-down-drop.svg');
+  --cui-sidebar-narrow-width: 79px;
+}
+.sidebar-nav .nav-link {
+  background-color: #ffffff;
+  color: #010101 !important;
+}
+
+.sidebar-nav .nav-item {
+  padding-top: 4px;
+}
+a.nav-link.nav-group-toggle {
+  margin-top: 5px;
+}
+/* ----------------------------- End sidebar css ---------------------------- */
+.card-body {
+  justify-content: center !important;
+}
+/* ----------------------------- dashborad  css ----------------------------- */
+.chart-wrapper {
+  margin-top: 2rem !important;
+}
+.activeUser {
+  color: white;
+  font-weight: bold;
+  background-color: green;
+  border-radius: 10px;
+  text-align: center;
+  padding: 2px;
+}
+.deactiveUser {
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 10px;
+  text-align: center;
+  padding: 2px;
+}
+
+.hover-card:hover .icon-container {
+  transform: scale(1.2); /* Adjust the scaling factor as needed */
+  transition: transform 0.3s ease-in-out;
+  opacity: 0.9;
+}
+
+button.btn.btn-primary.w-100.custom-color {
+  background-color: black;
+  color: white;
+}
+button.btn.btn-primary.w-100.custom-color:hover {
+  background-color: rgb(80, 80, 80);
+  color: white;
+}
+span.input-group-text {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  border: black;
+}
+
+.login-input {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.289);
+  border: 2px solid gray;
+  border-left: none;
+}
+
+.login-input:focus {
+  box-shadow: 1px 1px 23px black;
+  background-color: rgba(255, 255, 255, 0.371);
+  border: 2px solid black;
+  border-left: none;
+}
+
+.text-black {
+  color: black !important;
+}
+
+.WidgetStatsEback:hover {
+  background-image: url('../assets/images/7095.jpg');
+
+  background-color: #000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+
+.WidgetStatsEback {
+  margin-bottom: 10px;
+}
+
+.WidgetStatsEback:hover .text-medium-emphasis.small.text-uppercase.fw-semibold {
+  color: white !important;
+}
+
+.WidgetStatsEback:hover a {
+  color: white !important;
+}
+
+.fa-grill-hot {
+  font-size: large;
+  color: gray;
+}
+
+.tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
+  background-color: #dae4fc !important;
+}
+
+.css-hbtnrh-MuiTableCell-root {
+  background-color: #dae4fc !important;
+}
+
+.sidebar.sidebar-fixed.sidebar-narrow-unfoldable
+  .sidebar-brand.d-none.d-md-flex.main-logo.p-3
+  .logo {
+  width: 60px;
+}
+.sidebar.sidebar-fixed.sidebar-narrow-unfoldable:hover
+  .sidebar-brand.d-none.d-md-flex.main-logo.p-3
+  .logo {
+  width: auto;
+}

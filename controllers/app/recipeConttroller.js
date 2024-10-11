@@ -128,7 +128,7 @@ const recipeById = async (req, res, next) => {
         select: ["_id", "name", "image"],
       },
     ]);
-    const imagecomment = await Comment.countDocuments({ isimage: true });
+    const imagecomment = await Comment.countDocuments({ recipeid: recipeId, isimage: true });
 
     const baseUrl = {
       recipe: req.protocol + "://" + req.get("host") + process.env.BASE_URL_RECIPE_IAMGE,

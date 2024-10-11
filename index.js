@@ -62,6 +62,10 @@ app.use("/public/recipeimage", express.static(path.join(__dirname, "./public/ima
 app.use("/public/stepimage", express.static(path.join(__dirname, "./public/images/stepimg")));
 app.use("/public/commentimage", express.static(path.join(__dirname, "./public/images/commentimg")));
 
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+});
 //App Run
 
 const port = process.env.PORT || 5057;
