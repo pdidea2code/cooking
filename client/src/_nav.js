@@ -29,6 +29,8 @@ import user from './assets/images/user.svg'
 import Privacy_Policy from './assets/images/Privacy Policy.svg'
 import tandc from './assets/images/TandC.svg'
 import Notification from './assets/images/Notification.svg'
+import payment from './assets/images/payment.svg'
+import subscription from './assets/images/subscription.svg'
 
 const _nav = [
   {
@@ -83,13 +85,13 @@ const _nav = [
     component: CNavItem,
     name: 'Plan',
     to: '/Plan',
-    icon: <CImage src={recipe} className="nav-icon" />,
+    icon: <CImage src={subscription} className="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Payment',
     to: '/Payment',
-    icon: <CImage src={recipe} className="nav-icon" />,
+    icon: <CImage src={payment} className="nav-icon" />,
   },
   {
     component: CNavItem,
