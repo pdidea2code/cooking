@@ -7,6 +7,7 @@ const Comment = require("../../models/Comment");
 const mongoose = require("mongoose");
 const Recipe = require("../../models/Recipe");
 const Shopinglist = require("../../models/Shopinglist");
+const ShoppingListItem = require("../../models/ShoppingListItem");
 
 //Edit Profile
 const editProfile = async (req, res, next) => {
@@ -130,6 +131,7 @@ const deleteAccount = async (req, res, next) => {
     );
 
     await Shopinglist.deleteMany({ userid: req.user._id });
+    await ShoppingListItem.deleteMany({ userid: req.user._id });
     deleteFiles("userimg/" + user.image);
     await User.deleteOne({ _id: req.user._id });
 

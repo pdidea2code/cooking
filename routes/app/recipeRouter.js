@@ -19,8 +19,8 @@ router.post("/recipefilter", verifyAppToken, recipeFilter);
 router.post("/sercherecipe", verifyAppToken, sercheRecipe);
 router.get("/mostpopularrecipe", verifyAppToken, mostPopularRecipe);
 router.get("/recentviewrecipe", verifyAppToken, recentViewRecipe);
-router.post("/addShopingist", verifyAppToken, addShopingist);
-router.get("/shopingList", verifyAppToken, shopingList);
-router.get("/deleteshopinglist/:id", verifyAppToken, deleteShopinglist);
+// router.post("/addShopingist", verifyAppToken, addShopingist);
+// router.get("/shopingList", verifyAppToken, shopingList);
+// router.get("/deleteshopinglist/:id", verifyAppToken, deleteShopinglist);
 
 module.exports = router;

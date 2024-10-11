@@ -1,0 +1,41 @@
+const mongoose = require("mongoose");
+
+const shoppingListItemSchema = new mongoose.Schema(
+  {
+    shopping_list_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "shoppinglist",
+      required: true,
+    },
+    ingredient_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ingrident",
+      required: true,
+    },
+    userid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    recipe_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "recipe",
+      required: true,
+    },
+    unit: { type: mongoose.Schema.Types.ObjectId, ref: "unit", default: null },
+    amount: {
+      type: String,
+    },
+    name: {
+      type: String,
+    },
+    is_checked: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
+
+const ShoppingListItem = mongoose.model("shoppinglistitem", shoppingListItemSchema);
+module.exports = ShoppingListItem;

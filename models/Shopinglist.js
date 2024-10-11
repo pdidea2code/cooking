@@ -14,6 +14,10 @@ const ShopinglistSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    // items_missing: {
+    //   type: Number,
+    //   default: 0,
+    // },
   },
   {
     timestamps: true,
