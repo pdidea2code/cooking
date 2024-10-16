@@ -10,6 +10,7 @@ const {
   resetPassword,
   RefreshToken,
   getProfile,
+  socialLogin,
 } = require("../../controllers/app/userController");
 const { singleFileUpload } = require("../../helper/imageUpload");
 const verifyAppToken = require("../../helper/verifyAppToken");
@@ -28,6 +29,7 @@ router.post(
   addProfile
 );
 
+router.post("/socialLogin", socialLogin);
 router.post("/checkemailid", checkEmailId);
 router.post("/verifyotp", verifyOtp);
 router.post("/mobaileotpverify", mobaileOtpVerify);
