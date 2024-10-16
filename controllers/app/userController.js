@@ -10,13 +10,12 @@ const jwt = require("jsonwebtoken");
 //Signup User
 const signup = async (req, res, next) => {
   try {
-    const { email, password, name, mono } = req.body;
-    console.log("signup");
-    console.log(req.body);
+    const { email, password, confirmpassword, name, mono, fcm_token } = req.body;
 
     if (!name) {
       return queryErrorRelatedResponse(req, res, 400, "Name is required");
     }
+
     if (email === "") {
       return queryErrorRelatedResponse(req, res, 400, "Email is required");
     }
@@ -32,12 +31,21 @@ const signup = async (req, res, next) => {
       if (!password) {
         return queryErrorRelatedResponse(req, res, 400, "Password is required for email signup.");
       }
+
+      if (confirmpassword === "") {
+        return queryErrorRelatedResponse(req, res, 400, "Confirm Password is required");
+      }
+
+      if (password !== confirmpassword) {
+        return queryErrorRelatedResponse(req, res, 400, "Confirm Password does not match!");
+      }
+
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return queryErrorRelatedResponse(req, res, 400, "User already exists with this email.");
       }
 
-      const user = await User.create({ email, password, name });
+      const user = await User.create({ email, password, name, fcm_token });
       const token = user.generateAuthToken({ email: req.body.email });
       const refresh_token = user.generateRefreshToken({ email: req.body.email });
       const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
@@ -82,6 +90,7 @@ const signup = async (req, res, next) => {
         name,
         otp,
         expireOtpTime,
+        fcm_token,
       });
 
       return successResponse(res, user);
@@ -117,6 +126,8 @@ const login = async (req, res, next) => {
       const token = user.generateAuthToken({ email: req.body.email });
       const refresh_token = user.generateRefreshToken({ email: req.body.email });
       const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
+      user.fcm_token = req.body.fcm_token;
+      await user.save();
       const data = { token: token, refresh_token: refresh_token, user: user };
       successResponse(res, data, baseUrl);
     }
@@ -149,6 +160,7 @@ const login = async (req, res, next) => {
       //   });
       user.otp = otp;
       user.expireOtpTime = expireOtpTime;
+
       await user.save();
       return successResponse(res, user);
     }
@@ -198,6 +210,49 @@ const login = async (req, res, next) => {
   }
 };
 
+const socialLogin = async (req, res, next) => {
+  try {
+    if (req.body.google_id) {
+      const user = await user.findOne({ google_id: req.body.google_id });
+      if (!user) {
+        const reqbody = req.body;
+        const user = User.create({
+          google_id: req.body.google_id,
+          reqbody,
+        });
+        const token = user.generateAuthToken({ google_id: req.body.google_id });
+        const refresh_token = user.generateRefreshToken({ google_id: req.body.google_id });
+        const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
+        const info = { token: token, refresh_token: refresh_token, user: user };
+        successResponse(res, info, baseUrl);
+      } else {
+        successResponse(res, user);
+      }
+    }
+
+    //Apple Login
+    else {
+      const user = await user.findOne({ google_id: req.body.apple_id });
+      if (!user) {
+        const reqbody = req.body;
+        const user = User.create({
+          apple_id: req.body.apple_id,
+          reqbody,
+        });
+        const token = user.generateAuthToken({ apple_id: req.body.apple_id });
+        const refresh_token = user.generateRefreshToken({ apple_id: req.body.apple_id });
+        const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
+        const info = { token: token, refresh_token: refresh_token, user: user };
+        successResponse(res, info, baseUrl);
+      } else {
+        successResponse(res, user);
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 //Mobile Number Login Otp Verification
 const mobaileOtpVerify = async (req, res, next) => {
   try {
@@ -216,6 +271,8 @@ const mobaileOtpVerify = async (req, res, next) => {
     const token = user.generateAuthToken({ mono: req.body.mono });
     const refresh_token = user.generateRefreshToken({ mono: req.body.mono });
     user.otp = null;
+    user.fcm_token = req.body.fcm_token;
+
     await user.save();
     const baseUrl = req.protocol + "://" + req.get("host") + process.env.BASE_URL_USER_PROFILE_PATH;
     const info = { token: token, refresh_token: refresh_token, user: user };
@@ -316,21 +373,22 @@ const verifyOtp = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   try {
     if (req.body.newpassword === "") {
-      return queryErrorRelatedResponse(req, res, 401, "Password is required");
+      return queryErrorRelatedResponse(req, res, 400, "Password is required");
     }
     if (req.body.confirmpassword === "") {
-      return queryErrorRelatedResponse(req, res, 401, "Confirm Password is required");
+      return queryErrorRelatedResponse(req, res, 400, "Confirm Password is required");
     }
     if (req.body.email === "") {
-      return queryErrorRelatedResponse(req, res, 401, "Email is required");
+      return queryErrorRelatedResponse(req, res, 400, "Email is required");
+    }
+
+    if (req.body.newpassword !== req.body.confirmpassword) {
+      return queryErrorRelatedResponse(req, res, 400, "Confirm Password does not match!");
     }
 
     const user = await User.findOne({ email: req.body.email });
     if (!user) return queryErrorRelatedResponse(req, res, 401, "Invalid User");
 
-    if (req.body.newpassword !== req.body.confirmpassword) {
-      return queryErrorRelatedResponse(req, res, 401, "Confirm Password does not match!");
-    }
     user.otp = null;
     user.password = req.body.newpassword;
     await user.save();
@@ -384,4 +442,5 @@ module.exports = {
   resetPassword,
   RefreshToken,
   getProfile,
+  socialLogin,
 };
